@@ -8,6 +8,15 @@ Cara::Cara(VerticeNormal** aVN, int numV, float red, float green, float blue) {
 	color[2] = blue;
 }
 
+Cara::Cara(VerticeNormal** aVN, int numV) {
+	arrayVN = aVN;
+	numVertices = numV;
+	color[0] = 0.1;
+	color[1] = 0.1;
+	color[2] = 1;
+}
+
+
 int Cara::getNumeroVertices() {
 	return numVertices;
 }
