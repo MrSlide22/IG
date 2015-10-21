@@ -3,7 +3,7 @@
 #include <gl/GLU.h>
 #include <GL/freeglut.h>
 //#include <GL/glut.h>
-#include "Malla.h"
+#include "Cubo.h"
 
 #include <iostream>
 using namespace std;
@@ -22,6 +22,11 @@ GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
 GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
 GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
+
+
+void buildSceneObjects(){
+	
+}
 
 void initGL() {	 		 
 	glClearColor(0.6f,0.7f,0.8f,1.0);
@@ -58,10 +63,6 @@ void initGL() {
 	glLightfv(GL_LIGHT0, GL_POSITION, p);
  }
 
-void buildSceneObjects(){
-
-}
-
 void display(void) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
 
@@ -79,6 +80,9 @@ void display(void) {
 		glVertex3f(0, 0, 0);
 		glVertex3f(0, 0, 20);	     
 	glEnd();
+
+	Cubo* c = new Cubo();
+	c->dibuja();
 
 	/* Cuadrilatero
 	glBegin(GL_LINE_LOOP);

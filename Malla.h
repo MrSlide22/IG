@@ -9,11 +9,13 @@ class Malla {
 protected:
 	int numVertices;
 	PV3D** vertice;
-	int numeroCaras;
+	int numeroNormales;
 	PV3D** normal;
 	int numCaras;
 	Cara** cara;
+	PV3D* CalculoVectorNormalPorNewell(Cara C);
 
 public:
+	Malla();
 	void dibuja();
 };
