@@ -13,7 +13,7 @@ protected:
 	PV3D** normal;
 	int numCaras;
 	Cara** cara;
-	PV3D* CalculoVectorNormalPorNewell(Cara C);
+	PV3D* calculoVectorNormalPorNewell(Cara C);
 
 public:
 	Malla();

@@ -3,7 +3,8 @@
 #include <gl/GLU.h>
 #include <GL/freeglut.h>
 //#include <GL/glut.h>
-#include "Cubo.h"
+//#include "Cubo.h"
+#include "Quesito.h"
 
 #include <iostream>
 using namespace std;
@@ -81,9 +82,26 @@ void display(void) {
 		glVertex3f(0, 0, 20);	     
 	glEnd();
 
-	Cubo* c = new Cubo();
-	c->dibuja();
+	/*Cubo* c = new Cubo();
+	c->dibuja();*/
 
+	Quesito* q1 = new Quesito(6, 5, 2.5, 0, 0, 0, 1);
+	q1->dibuja();
+
+	Quesito* q2 = new Quesito(6, 5, 2.5, 1, 0, 1, 0);
+	q2->dibuja();
+
+	Quesito* q3 = new Quesito(6, 5, 2.5, 2, 1, 0, 0);
+	q3->dibuja();
+
+	Quesito* q4 = new Quesito(6, 5, 2.5, 3, 0, 1, 1);
+	q4->dibuja();
+
+	Quesito* q5 = new Quesito(6, 5, 2.5, 4, 1, 1, 0);
+	q5->dibuja();
+
+	Quesito* q6 = new Quesito(6, 5, 2.5, 5, 1, 0, 1);
+	q6->dibuja();
 	/* Cuadrilatero
 	glBegin(GL_LINE_LOOP);
 		glColor3f(1.0, 0.0, 0.0);

@@ -9,6 +9,7 @@ private:
 	int pv;
 
 public:
+	PV3D(int pva);
 	PV3D(GLfloat xa, GLfloat ya, GLfloat za, int pva);
 	PV3D* normaliza();
 	PV3D* clona();

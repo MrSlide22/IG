@@ -2,6 +2,10 @@
 #include <gl/GL.h>
 #include <cmath>
 
+PV3D::PV3D(int pva) {
+	pv = pva;
+}
+
 PV3D::PV3D(GLfloat xa, GLfloat ya, GLfloat za, int pva) {
 	x = xa;
 	y = ya;
@@ -40,4 +44,8 @@ void PV3D::setZ(GLfloat za){
 PV3D* PV3D::normaliza() {
 	GLfloat modulo = sqrt(x*x + y*y + z*z);
 	return new PV3D(x/modulo, y/modulo, z/modulo, 0);
+}
+
+PV3D* PV3D::clona(){
+	return new PV3D(this->getX(), this->getY(), this->getZ(), this->pv);
 }
