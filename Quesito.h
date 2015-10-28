@@ -1,3 +1,4 @@
+#pragma once
 #include "Malla.h"
 
 class Quesito : public Malla{
@@ -7,7 +8,8 @@ private:
 	float z;
 	float x;
 	int indiceQuesito;
-	float color[3];
+	float* color;
+	void construiRevolucion(int m, int nQuesitos);
 
 public:
 	/*
@@ -21,6 +23,5 @@ public:
 	float green: componente verde del color del quesito
 	float: blue: componente azul del color del quesito
 	*/
-	Quesito(int nQ, float z, float x, int indiceQuesito, float red, float green, float blue);
-	void construiRevolucion(int m);
+	Quesito(int nQ, float z, float x, int indiceQuesito, int nQuesitos, float color[]);
 };

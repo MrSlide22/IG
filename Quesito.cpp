@@ -1,9 +1,10 @@
+#pragma once
 #include "Quesito.h"
 #include <iostream>;
 #include <cmath>
 
 
-Quesito::Quesito(int nQ, float z, float x, int indiceQuesito, float red, float green, float blue){
+Quesito::Quesito(int nQ, float z, float x, int indiceQuesito, int nQuesitos, float color[]){
 
 	this->nQ = nQ;
 	this->z = z;
@@ -11,9 +12,7 @@ Quesito::Quesito(int nQ, float z, float x, int indiceQuesito, float red, float g
 
 	this->indiceQuesito = indiceQuesito;
 
-	this->color[0] = red;
-	this->color[1] = green;
-	this->color[2] = blue;
+	this->color = color;
 
 	int m = 2; //numero de vertices que componen el perfil de la parte curva del quesito
 
@@ -24,7 +23,7 @@ Quesito::Quesito(int nQ, float z, float x, int indiceQuesito, float red, float g
 	this->normal = new PV3D*[numeroNormales];
 	this->cara = new Cara*[numCaras];
 
-	this->construiRevolucion(m); //Construimos la cara curva
+	this->construiRevolucion(m, nQuesitos); //Construimos la cara curva
 
 	this->numVertices += 2; //anadimos los dos vertices del centro
 
@@ -40,7 +39,7 @@ Quesito::Quesito(int nQ, float z, float x, int indiceQuesito, float red, float g
 	vn[0][1] = new VerticeNormal(nQ*m + m - 2, nQ*m + 1);
 	vn[0][2] = new VerticeNormal(nQ*m + m, nQ*m + 1);
 	vn[0][3] = new VerticeNormal(nQ*m + m + 1, nQ*m + 1);
-	this->cara[nQ*(m - 1)] = new Cara(vn[0], 4);
+	this->cara[nQ*(m - 1)] = new Cara(vn[0], 4, color[0], color[1], color[2]);
 
 	//Cara lateral 2 (izquierda)
 	vn[1] = new VerticeNormal*[4];
@@ -48,7 +47,7 @@ Quesito::Quesito(int nQ, float z, float x, int indiceQuesito, float red, float g
 	vn[1][1] = new VerticeNormal(nQ*m + m, nQ*m + 2);
 	vn[1][2] = new VerticeNormal(0, nQ*m + 2);
 	vn[1][3] = new VerticeNormal(1, nQ*m + 2);
-	this->cara[nQ*(m - 1) + 1] = new Cara(vn[1], 4);
+	this->cara[nQ*(m - 1) + 1] = new Cara(vn[1], 4, color[0], color[1], color[2]);
 
 	//Tapa (arriba)
 	vn[2] = new VerticeNormal*[nQ + 2];
@@ -59,12 +58,12 @@ Quesito::Quesito(int nQ, float z, float x, int indiceQuesito, float red, float g
 	this->cara[nQ*(m - 1) + 2] = new Cara(vn[2], nQ + 2, color[0], color[1], color[2]);
 }
 
-void Quesito::construiRevolucion(int m){
+void Quesito::construiRevolucion(int m, int nQuesitos){
 	
 	PV3D** perfil = new PV3D*[m];
 
 	//Calculamos donde debe empezar el perfil en funcion de indiceQuesito (la posicion que ocupa el quesito en el circulo de trivial
-	double theta = (this->indiceQuesito * 360 / (double)this->nQ) * atan(1) * 4 / 180; //atan(1) * 4 = PI
+	double theta = (this->indiceQuesito * 360 / nQuesitos) * atan(1) * 4 / 180; //atan(1) * 4 = PI || 6 es el numero de quesitos que queremos en la ficha
 	double c = cos(theta);
 	double s = sin(theta);
 	double x = s*this->z;
@@ -80,9 +79,9 @@ void Quesito::construiRevolucion(int m){
 	}
 
 	//Definimos el resto de vertices de la revolucion
-	for (int i = 0; i < nQ + m; i++){ //nQ+2 para generar el numero de caras de la revolucion mas el ultimo perfil
+	for (int i = 1;  i < nQ + m; i++){ //nQ+2 para generar el numero de caras de la revolucion mas el ultimo perfil
 
-		double theta = (i * 60 / (double)this->nQ) * atan(1) * 4 / 180; //atan(1) * 4 = PI
+		double theta = (i * (360 / nQuesitos - 5) / (double)this->nQ) * atan(1) * 4 / 180; //atan(1) * 4 = PI
 		double c = cos(theta);
 		double s = sin(theta);
 

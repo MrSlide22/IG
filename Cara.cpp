@@ -11,8 +11,8 @@ Cara::Cara(VerticeNormal** aVN, int numV, float red, float green, float blue) {
 Cara::Cara(VerticeNormal** aVN, int numV) {
 	arrayVN = aVN;
 	numVertices = numV;
-	color[0] = 0.1;
-	color[1] = 0.1;
+	color[0] = 0.1f;
+	color[1] = 0.1f;
 	color[2] = 1;
 }
 
@@ -27,14 +27,14 @@ int Cara::getIndiceVertice(int j) {
 	return arrayVN[j]->getIndVert();
 }
 
-int Cara::getRed(){
+float Cara::getRed(){
 	return color[0];
 }
 
-int Cara::getGreen(){
+float Cara::getGreen(){
 	return color[1];
 }
 
-int Cara::getBlue(){
+float Cara::getBlue(){
 	return color[2];
 }

@@ -1,12 +1,21 @@
+#pragma once
 #include <Windows.h>
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include <GL/freeglut.h>
 //#include <GL/glut.h>
 //#include "Cubo.h"
-#include "Quesito.h"
+#include "Ficha.h"
+//#include "MontanaRusa.h"
 
 #include <iostream>
+#include <cmath>
+
+#define KEY_UP 72
+#define KEY_DOWN 80
+#define KEY_LEFT 75
+#define KEY_RIGHT 77
+
 using namespace std;
 
 // Freeglut parameters
@@ -23,10 +32,14 @@ GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
 GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
 GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
-
+Ficha* ficha;
+//MontanaRusa* montana;
 
 void buildSceneObjects(){
 	
+	ficha = new Ficha(6);
+
+	//montana = new MontanaRusa(8, 30, 1);
 }
 
 void initGL() {	 		 
@@ -82,26 +95,30 @@ void display(void) {
 		glVertex3f(0, 0, 20);	     
 	glEnd();
 
+	/*glBegin(GL_LINES);
+	glColor3f(1.0, 0.0, 0.0);
+	int nQ = 50;
+	int nP = 4;
+	for (int i = 0; i < nQ; i++){
+		int t = (360 / nQ) * i;
+		std::cout << t << endl;
+		float theta = t*atan(1) * 4 / 180;
+
+		float x = 3 * cos(theta);
+		float y = 3 * sin(2 * theta);
+		float z = 3 * sin(theta);
+
+		glVertex3f(x, y, z);
+	}
+	glEnd();*/
+
 	/*Cubo* c = new Cubo();
 	c->dibuja();*/
 
-	Quesito* q1 = new Quesito(6, 5, 2.5, 0, 0, 0, 1);
-	q1->dibuja();
+	ficha->dibuja();
 
-	Quesito* q2 = new Quesito(6, 5, 2.5, 1, 0, 1, 0);
-	q2->dibuja();
+	//montana->dibuja(); //DIBUJANDO MONTANA RUSA
 
-	Quesito* q3 = new Quesito(6, 5, 2.5, 2, 1, 0, 0);
-	q3->dibuja();
-
-	Quesito* q4 = new Quesito(6, 5, 2.5, 3, 0, 1, 1);
-	q4->dibuja();
-
-	Quesito* q5 = new Quesito(6, 5, 2.5, 4, 1, 1, 0);
-	q5->dibuja();
-
-	Quesito* q6 = new Quesito(6, 5, 2.5, 5, 1, 0, 1);
-	q6->dibuja();
 	/* Cuadrilatero
 	glBegin(GL_LINE_LOOP);
 		glColor3f(1.0, 0.0, 0.0);
@@ -186,7 +203,31 @@ void key(unsigned char key, int x, int y){
 			//continue_in_main_loop = false; // (**)
 			//Freeglut's sentence for stopping glut's main loop (*)
 			glutLeaveMainLoop (); 
-			break;		 			 
+			break;
+		case 'g':
+			ficha->setDisplayModel(0);
+			break;
+		case 'h':
+			ficha->setDisplayModel(1);
+			break;
+		case 'd':
+			ficha->setRotateAngleY(ficha->getRotateAngleY() + 10);
+			break;
+		case 'a':
+			ficha->setRotateAngleY(ficha->getRotateAngleY() - 10);
+			break;
+		case 'w':
+			ficha->setRotateAngleX(ficha->getRotateAngleX() + 10);
+			break;
+		case 's':
+			ficha->setRotateAngleX(ficha->getRotateAngleX() - 10);
+			break;
+		case 'z':
+			ficha->setRotateAngleZ(ficha->getRotateAngleZ() + 10);
+			break;
+		case 'x':
+			ficha->setRotateAngleZ(ficha->getRotateAngleZ() - 10);
+			break;
 		default:
 			need_redisplay = false;
 			break;

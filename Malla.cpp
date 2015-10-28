@@ -2,16 +2,28 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "Malla.h"
+#include <iostream>
 
 Malla::Malla() {
 }
 
 void Malla::dibuja(){
-	
+	if (this->rotateAngleX != 0 || this->rotateAngleY != 0 || this->rotateAngleZ != 0){
+		glMatrixMode(GL_MODELVIEW);
+		glPushMatrix();
+		glRotatef(this->rotateAngleX, 1, 0, 0);
+		glRotatef(this->rotateAngleY, 0, 1, 0);
+		glRotatef(this->rotateAngleZ, 0, 0, 1);
+	}
 	 for (int i = 0; i<numCaras; i++) {
 		 glLineWidth(1.0);
 		 glColor3f(cara[i]->getRed(), cara[i]->getGreen(), cara[i]->getBlue());
-		 glBegin(GL_POLYGON); //o glBegin(GL_LINE_LOOP);
+		 if (this->displayModel == 1){
+			 glBegin(GL_POLYGON);
+		 }
+		 else if(this->displayModel == 0){
+			 glBegin(GL_LINE_LOOP);
+		 }
 		 for (int j = 0; j < cara[i]->getNumeroVertices(); j++) {
 			 int iN = cara[i]->getIndiceNormal(j);
 			 int iV = cara[i]->getIndiceVertice(j);
@@ -22,6 +34,9 @@ void Malla::dibuja(){
 			 glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
 		 }
 		 glEnd();
+	 }
+	 if (this->rotateAngleX != 0 || this->rotateAngleY != 0 || this->rotateAngleZ != 0){
+		 glPopMatrix();
 	 }
  }
 
@@ -35,4 +50,30 @@ PV3D* Malla::calculoVectorNormalPorNewell(Cara C){
 		n->setZ(n->getZ() + ((vertActual->getX() - vertSiguiente->getX())*(vertActual->getY() + vertSiguiente->getY()))); // X * Y
 	}
 	return n->normaliza();
+}
+
+void Malla::setDisplayModel(int model){
+	this->displayModel = model;
+}
+
+float Malla::getRotateAngleX(){
+	return this->rotateAngleX;
+}
+
+void Malla::setRotateAngleX(float angle){
+	this->rotateAngleX = angle;
+}
+float Malla::getRotateAngleY(){
+	return this->rotateAngleY;
+}
+
+void Malla::setRotateAngleY(float angle){
+	this->rotateAngleY = angle;
+}
+float Malla::getRotateAngleZ(){
+	return this->rotateAngleZ;
+}
+
+void Malla::setRotateAngleZ(float angle){
+	this->rotateAngleZ = angle;
 }

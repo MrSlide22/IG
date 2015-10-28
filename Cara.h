@@ -1,3 +1,4 @@
+#pragma once
 #include "VerticeNormal.h"
 
 class Cara {
@@ -13,7 +14,7 @@ public:
 	int getNumeroVertices();
 	int getIndiceNormal(int j);
 	int getIndiceVertice(int j);
-	int getRed();
-	int getGreen();
-	int getBlue();
+	float getRed();
+	float getGreen();
+	float getBlue();
 };
